@@ -1,7 +1,10 @@
-// import * as ts from 'typescript';
+import * as ts from 'typescript';
+
 
 export default function (options, cb) {
     return cb(null, function (cb) {
-      cb(null, options.script);
+      const source = options.script;
+      let result = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } });
+      cb(null, result.outputText);
     });
 };
